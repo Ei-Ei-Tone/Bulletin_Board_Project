@@ -11,15 +11,14 @@
           <label class="col-sm-3">
           <h6 class="mb-0">Title</h6>
           </label>
-          <input type="text"  value ="{{$postTitle}}" class="border-0 col-sm-9 text-secondary" name="title" id="title">
-          
+          <input type="text"  value ="{{$postTitle}}" class="border-0 col-sm-9 text-secondary" name="title" readonly>         
         </div>
         <hr>
         <div class="row">
           <label class="col-sm-3">
           <h6 class="mb-0">Description</h6>
           </label>
-          <input type="text"  value ="{{$postDescription}}" class="border-0 col-sm-9 text-secondary" name="description" id="description"> 
+          <input type="text"  value ="{{$postDescription}}" class="border-0 col-sm-9 text-secondary" name="description" readonly> 
         </div>
         <hr>
         <div class="row">
@@ -27,17 +26,12 @@
           <button type="submit" class="btn btn-primary mx-sm-3">
             Create
           </button>
-          <button type="button" class="btn btn-outline-success">
-            Cancel
-          </button>
+          <a href="{{ URL::previous() }}" class="btn btn-outline-success" role="button">Cancel</a>
           </div>
         </div>
 
       </form>
     </div>
   </div>
-
-		
-   </div>
 </div>
 @endsection

@@ -6,15 +6,18 @@
         <h1 class="mb-5">User Profile</h1>
         <div class="card mb-3">
           <div class="card-body">
+            @if(session('updated'))
+            <p class="alert alert-success">{{ session('updated') }}</p>
+            @endif
             <div class="row pb-lg-5">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <img src="{{asset('/images/'.$user->profile)}}" alt="Admin" class="rounded-circle" width="150">
             </div>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Name</h6>
               </label>
               <label class="col-sm-9 text-secondary">
-                Aung Aung
+                {{$user->name}}
               </label>
             </div>
             <hr>
@@ -23,7 +26,7 @@
                 <h6 class="mb-0">Email Addess</h6>
               </label>
               <label class="col-sm-9 text-secondary">
-                aungaung@gmail.com
+                {{$user->email}}
               </label>
             </div>
             <hr>
@@ -32,7 +35,7 @@
                 <h6 class="mb-0">Type</h6>
               </label>
               <div class="col-sm-9 text-secondary">
-                User
+               {{$user->type}}
               </div>
             </div>
             <hr>
@@ -41,7 +44,7 @@
                 <h6 class="mb-0">Phone</h6>
               </label>
               <label class="col-sm-9 text-secondary">
-                97894655
+                {{$user->phone}}
               </label>
             </div>
             <hr>
@@ -50,7 +53,7 @@
                 <h6 class="mb-0">Date Of Birth</h6>
               </label>
               <label class="col-sm-9 text-secondary">
-                12/12/2001
+                {{$user->dob}}
               </label>
             </div>
             <hr>
@@ -59,13 +62,13 @@
                 <h6 class="mb-0">Address</h6>
               </label>
               <label class="col-sm-9 text-secondary">
-                Hledan, Yangon
+                {{$user->address}}
               </label>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info " target="__blank" href="/updateProfile">Edit</a>
+                <a class="btn btn-info " target="__blank" href="/user/showUpdateProfile/{{$user->id}}">Edit</a>
               </div>
             </div>
           </div>

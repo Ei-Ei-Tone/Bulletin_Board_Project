@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\User\UserDashboardComponent;
+use App\Http\Livewire\Admin\AdminDashboardComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,61 +21,67 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Home Page
+Route::get('/home','App\Http\Controllers\PostController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::group(['prefix' => 'posts'], function () {
-  Route::get('/','App\Http\Controllers\PostController@index');
-
+//Group Posts
+Route::group(['prefix' => 'posts'], function() {
+  //create post
   Route::get('/create','App\Http\Controllers\PostController@createPost');
   Route::post('/store','App\Http\Controllers\PostController@store');
-
-  // Route::get('/confirm','App\Http\Controllers\PostController@confirmPost');
+  
+  //create confirm post
   Route::post('/confirm','App\Http\Controllers\PostController@addPost');
 
-  Route::get('/update','App\Http\Controllers\PostController@updatePost');
-  Route::get('/updateConfirm','App\Http\Controllers\PostController@updateConfirmPost');
+  //update post
+  Route::get('/update/{id}','App\Http\Controllers\PostController@updateShow');
+  Route::post('/updatePost','App\Http\Controllers\PostController@updatePost');
+
+  //update confirm post
+  Route::post('/updateConfirm','App\Http\Controllers\PostController@updateConfirmPost')->name('update');
   Route::get('/uploadFile','App\Http\Controllers\PostController@uploadFile');
+
+  //delete post
+  Route::delete('/delete/{id}','App\Http\Controllers\PostController@destroy')->name('posts.destroy');
 });
-//POST
-// Route::get('/posts','App\Http\Controllers\PostController@index');
 
+//Group User
+Route::group(['prefix' => 'user'], function () {
+  //get user list
+  Route::get('/userList','App\Http\Controllers\UserController@getUserList');
+  
+  //create user
+  Route::get('/create','App\Http\Controllers\UserController@createUser');
+  Route::post('/store','App\Http\Controllers\UserController@store');
 
-//create post
+  //create confirm user
+  Route::post('/confirm','App\Http\Controllers\UserController@confirmUser');
 
+  //For User Delete
+  Route::delete('/delete/{id}','App\Http\Controllers\UserController@destroy');
 
-//create confirm post
+  //create user profile
+  Route::get('/showProfile/{id}','App\Http\Controllers\UserController@showProfile');
+  
+  //update user profile
+  Route::get('/showUpdateProfile/{id}','App\Http\Controllers\UserController@showUpdateProfile');
+  
+  //confirm user profile
+  Route::post('/confirmProfile/{id}','App\Http\Controllers\UserController@confirmProfile');
 
+  //add user profile to DB
+  Route::post('/addProfile','App\Http\Controllers\UserController@addProfile');
+  
+  //change password
+  Route::get('/changePassword/{id}','App\Http\Controllers\UserController@changePassword');
+  Route::post('/addPassword','App\Http\Controllers\UserController@addPassword');
 
-//update post
+});
 
+// Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+//   Route::get('/user/dashboard',App\Http\Livewire\User\UserDashboardComponent::class)->name('user.dashboard');
+// });
 
-//update confirm post
-
-
-//create user
-Route::get('/createUser','App\Http\Controllers\UserController@createUser');
-//create confirm user
-Route::get('/confirmUser','App\Http\Controllers\UserController@confirmUser');
-
-//create user profile
-Route::get('/userProfile','App\Http\Controllers\UserController@userProfile');
-
-//update user profile
-Route::get('/updateProfile','App\Http\Controllers\UserController@updateProfile');
-
-//update user profile
-Route::get('/confirmProfile','App\Http\Controllers\UserController@confirmProfile');
-
-//change password
-Route::get('/changePassword','App\Http\Controllers\UserController@changePassword');
-
-//Upload CSV File
+// Route::middleware(['auth:sanctum', 'verified','authadmin'])->group(function(){
+//   Route::get('/admin/dashboard',App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('admin.dashboard');
+// });

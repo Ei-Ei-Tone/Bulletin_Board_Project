@@ -5,24 +5,32 @@
     <div class="col-lg-8">
       <h1 class="mb-5">Update User</h1>
       <div class="card">
-        <form class="card-body" action="/confirmProfile">
+        <form class="card-body" action="/user/confirmProfile/{{$user->id}}" method="POST" enctype="multipart/form-data">
+          @csrf
           <div class="row pb-lg-5">
-            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+            <img src="{{asset('/images/'.$user->profile)}}" class="rounded-circle" width="150">
           </div>
           <div class="row mb-3">
             <label class="col-sm-3">
               <h6 class="mb-0">Name</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <input type="text" class="form-control" value="Aung Aung" required>
+              <input type="text" class="form-control @error ('name') is-invalid @enderror" value="{{$user->name}}" name="name">
+              @error('name')
+                <div class="alert alert-danger mt-1">{{ $message }}</div> 
+              @enderror
             </div>
           </div>
+
           <div class="row mb-3">
             <label class="col-sm-3">
               <h6 class="mb-0">Email Address</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <input type="email" class="form-control" value="aungaung@gmail.com" required>
+              <input type="text"  value ="{{$user->email}}" class="form-control @error ('email') is-invalid @enderror" name="email">  
+              @error('email')
+              <div class="alert alert-danger mt-1">{{ $message }}</div> 
+            @enderror
             </div>
           </div>
           <div class="row mb-3">
@@ -30,19 +38,24 @@
               <h6 class="mb-0">Type</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <select class="custom-select form-control" id="custom-select" required aria-label="select example" required>
-                <option value="">Choose Type</option>
+              <select class="custom-select form-control @error ('type') is-invalid @enderror" id="custom-select" name="type" aria-label="select example">h  
+                <option value="">{{$user->type}}</option>
                 <option value="0">Admin</option>
                 <option value="1">User</option>
               </select>
             </div>
+
           </div>
+
           <div class="row mb-3">
             <label class="col-sm-3">
               <h6 class="mb-0">Phone</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <input type="text" class="form-control" value="97894655">
+              <input type="text" name="phone" class="form-control @error ('phone') is-invalid @enderror" value="{{$user->phone}}" >
+              @error('Phone')
+                <div class="alert alert-danger mt-1">{{ $message }}</div> 
+              @enderror
             </div>
           </div>
           <div class="row mb-3">
@@ -50,7 +63,10 @@
               <h6 class="mb-0">Date Of Birth</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <input type="date" class="form-control" value="12/12/2001">
+              <input type="date" class="form-control @error ('Date of Birth') is-invalid @enderror" value="{{$user->dob}}" name="date">
+              @error('Date of Birth')
+                <div class="alert alert-danger mt-1">{{ $message }}</div> 
+              @enderror
             </div>
           </div>
           <div class="row mb-3">
@@ -58,7 +74,10 @@
               <h6 class="mb-0">Address</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <textarea type="text" class="form-control" value="Hledan, Yangon" required>Hledan, Yangon</textarea>
+              <textarea type="text" class="form-control @error ('Address') is-invalid @enderror" value="" name="address">{{$user->address}}</textarea>
+              @error('address')
+                <div class="alert alert-danger mt-1">{{ $message }}</div> 
+              @enderror
             </div>
           </div>
           <div class="row mb-5">
@@ -66,14 +85,14 @@
               <h6 class="mb-0">Profile</h6>
             </label>
             <label class="col-sm-9 text-secondary">
-              <input type="file" class="form-control" value="" required>
+              <input type="file" class="form-control" value="{{$user->profile}}" id="img_file_upid" name="profile" >
             </label>
           </div>
           <div class="row mb-5">
             <div class="col-sm-3">
             </div>
             <div class="col-sm-9 text-secondary">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <img src="{{asset('/images/'.$user->profile)}}" class="rounded-circle" width="150" id="img_prv" name="profile">
             </div>
           </div>
           <div class="row">
@@ -81,13 +100,13 @@
               <button type="submit" class="btn btn-primary mx-sm-3">
                   Confirm
               </button>
-              <button type="button" class="btn btn-outline-success">
+              <button type="reset" class="btn btn-outline-success">
                   Clear
               </button>
             </div>
           </div>
           <div class="col text-center">
-            <a href="/changePassword">Change password</a>
+            <a href="/user/changePassword/{{$user->id}}">Change password</a>
           </div>
         </form>
       </div>

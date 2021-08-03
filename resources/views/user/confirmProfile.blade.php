@@ -5,62 +5,52 @@
       <div class="col-md-8">
         <h1 class="mb-5">Update User Confirmation</h1>
         <div class="card mb-3">
-          <form class="card-body" method="POST" action="#">
+          <form class="card-body" method="POST" action="/user/addProfile" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="id" value="{{$user->id}}">
             <div class="row pb-lg-5">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <img src="{{asset('/images/'.$user->profile)}}" class="rounded-circle" width="150">
             </div>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Name</h6>
               </label>
-              <label class="col-sm-9 text-secondary">
-                Aung Aung
-              </label>
+              <input type="text"  value ="{{$user->name}}" class="border-0 col-sm-9 text-secondary" name="name" readonly> 
             </div>
             <hr>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Email Addess</h6>
               </label>
-              <label class="col-sm-9 text-secondary">
-                aungaung@gmail.com
-              </label>
+              <input type="text"  value ="{{$user->email}}" class="border-0 col-sm-9 text-secondary" name="email" readonly> 
             </div>
             <hr>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Type</h6>
               </label>
-              <label class="col-sm-9 text-secondary">
-                User
-              </label>
+              <input type="text"  value ="{{$user->type}}" class="border-0 col-sm-9 text-secondary" name="type" readonly> 
             </div>
             <hr>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Phone</h6>
               </label>
-              <label class="col-sm-9 text-secondary">
-                97894655
-              </label>
+              <input type="text"  value ="{{$user->phone}}" class="border-0 col-sm-9 text-secondary" name="phone" readonly> 
             </div>
             <hr>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Date Of Birth</h6>
               </label>
-              <label class="col-sm-9 text-secondary">
-                12/12/2001
-              </label>
+              <input type="text"  value ="{{$user->dob}}" class="border-0 col-sm-9 text-secondary" name="date" readonly> 
             </div>
             <hr>
             <div class="row">
               <label class="col-sm-3">
                 <h6 class="mb-0">Address</h6>
               </label>
-              <label class="col-sm-9 text-secondary">
-                Hledan, Yangon
-              </label>
+              <input type="text"  value ="{{$user->address}}" class="border-0 col-sm-9 text-secondary" name="address" readonly> 
             </div>
             <hr>
             <div class="row">
@@ -68,9 +58,9 @@
                 <button type="submit" class="btn btn-primary mx-sm-3">
                     Update
                 </button>
-                <button type="button" class="btn btn-outline-success">
-                    Cancel
-                </button>
+                <a href="{{ URL::previous() }}" class="btn btn-outline-success" role="button">
+                  Cancel
+                </a>
               </div>
             </div>
           </form>

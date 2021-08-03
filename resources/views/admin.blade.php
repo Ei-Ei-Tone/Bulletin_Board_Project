@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+  <h1 class="mb-5">Post List</h1>
   <div class="row">
     <div class="col-md-6">
         <form action="#" class="form-inline my-2 my-lg-0" method="GET">
@@ -25,45 +26,42 @@
         </a>
     </div>
   </div>
+
   <div class="row mt-4">
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" id="datatable">
       <thead>
         <tr>
           <th scope="col">Post Title</th>
           <th scope="col">Post Description</th>
           <th scope="col">Post Use</th>
           <th scope="col">Post Date</th>
-          <th></th>
-          <th></th>
+          <th>Edit</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
+        @foreach ($posts as $post)
         <tr>
-          <th scope="row">Title 1</th>
-          <td>Description 1</td>
-          <td>User 1</td>
-          <td>5/10/2019</td>
-          <td class="text-center"><a href="/updatePost" class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
-          <td class="text-center"><a href="#" class="btn btn-danger btn-lg" ><i class="fa fa-trash"></i> Delete</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Title 2</th>
-          <td>Description 1</td>
-          <td>User 1</td>
-          <td>5/10/2019</td>
-          <td class="text-center"><a href="/updatePost" class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
-          <td class="text-center"><a href="#" class="btn btn-danger btn-lg" ><i class="fa fa-trash"></i> Delete</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Title 3</th>
-          <td>Description 1</td>
-          <td>User 1</td>
-          <td>5/10/2019</td>
-          <td class="text-center"><a href="/updatePost" class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
-          <td class="text-center"><a href="#" class="btn btn-danger btn-lg" ><i class="fa fa-trash"></i> Delete</a></td>
-        </tr>
+          <th scope="row">{{$post->title}}</th>
+          <td>{{$post->description}}</td>
+          <td>
+            {{$post->status}}
+          </td>
+          <td>{{ $post->created_at->format('d/m/Y') }}</td>
+          <td class="text-center"><a href={{"/posts/update/$post->id"}} class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
+          
+          <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$post->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
+          @include('posts.delete')
+        </tr>   
+        @endforeach
+
       </tbody>
+     
     </table>
+    {{$posts->links()}}
   </div>
 </div>
+
+{{--  --}}
 @endsection
+

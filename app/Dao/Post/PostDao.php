@@ -16,6 +16,36 @@ class PostDao implements PostDaoInterface
         ]);
         return $posts;
     }
+
+    public function index()
+    {   
+        $posts=Post::orderBy('id','desc')->paginate(5);
+        return $posts;
+    }
+
+    public function updateShow($id)
+    {   
+        $post = Post::find($id);
+        return $post;
+    }
+
+    public function updateConfirmPost(Request $request)
+    { 
+        $post = Post::find($request->id);
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->status = (int) $request->has('status')? true : false;
+        //dd($post->status);
+        $post->save();
+        return $post;
+    }
+
+    public function destroy($id)
+    { 
+        $post = Post::find($id);
+        $post->delete();
+        return $post;
+    }
 }
 
 ?>

@@ -4,7 +4,19 @@
 
     interface PostDaoInterface
     {   
-        //get post list
+        //post list
         public function addPost(Request $request);
+
+        //get post list
+        public function index();
+
+        //update post
+        public function updateShow($id);
+
+        //update post comfirm
+        public function updateConfirmPost(Request $request);
+
+        //delete post
+        public function destroy($id);
     }
 ?>

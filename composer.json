@@ -10,9 +10,20 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
+        "laravel/jetstream": "^2.3",
+        "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.3"
+        "laravel/ui": "^3.3",
+        "livewire/livewire": "^2.5",
+        "spatie/laravel-permission": "^4.2"
     },
+    "repositories": [
+        {
+             "type": "composer", 
+             "url": "https://packagist.org"
+        },
+        { "packagist": false }
+    ],
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",

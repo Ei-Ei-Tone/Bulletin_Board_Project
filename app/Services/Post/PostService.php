@@ -21,12 +21,47 @@ class PostService implements PostServiceInterface
   }
 
   /**
-   * Get Post List
-   * @param Object
-   * @return $userList
+   * Post List
+   * @return $request
    */
   public function addPost(Request $request)
   { 
     return $this->postDao->addPost($request);
+  }
+
+  /**
+   * Get Post List
+   * @return $post
+   */
+  public function index()
+  { 
+    return $this->postDao->index();
+  }
+
+  /**
+   * Update Post List
+   * @return $post
+   */
+  public function updateShow($id)
+  { 
+    return $this->postDao->updateShow($id);
+  }
+
+  /**
+   * Update Post Confirm List
+   * @return $post
+   */
+  public function updateConfirmPost(Request $request)
+  { 
+    return $this->postDao->updateConfirmPost($request);
+  }
+
+  /**
+   * Delete Post List
+   * @return $post
+   */
+  public function destroy($id)
+  { 
+    return $this->postDao->destroy($id);
   }
 }
