@@ -1,0 +1,8 @@
+id,title,description,status,created_at,updated_at,deleted_at
+4,RealMi,RealMi is the best,0,NULL,NULL,
+5,RedMi,RedMi is the best,0,NULL,NULL,
+6,i-Phone-6,i-Phone-7 is the best,1,NULL,NULL,
+7,i-Phone-12,i-Phone-12 is the best,1,NULL,NULL,
+8,i-Phone-7,i-Phone-7 is the best,1,NULL,NULL,
+9,i-Phone-8,i-Phone-8 is the best,1,NULL,NULL,
+10,i-Phone-10,i-Phone-10 is the best,0,NULL,NULL,

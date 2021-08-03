@@ -20,6 +20,9 @@ interface PostServiceInterface
 
     //delete post
     public function destroy($id);
+
+    //search by title and description
+    public function search(Request $request);
 }
  
 ?>

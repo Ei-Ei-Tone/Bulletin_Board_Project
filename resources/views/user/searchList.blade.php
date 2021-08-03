@@ -6,11 +6,11 @@
     <div class="col-md-10">
         <form action="/user/search" class="form-inline my-2 my-lg-0" method="POST" enctype="multipart/form-data">
             @csrf
-            <input class="form-control mr-sm-2" name="name" id="name" type="text" placeholder="Name" style="width: 150px" value="" />
-            <input class="form-control mr-sm-2" name="email" id="email" type="text" placeholder="Email"style="width: 150px" value="" />
-            <input class="form-control mr-sm-2" name="fromDate" id="fromDate" type="date" placeholder="Created From" style="width: 150px" value="" />
-            <input class="form-control mr-sm-2" name="toDate" id="toDate" type="date" placeholder="Created to" style="width: 150px" value="" />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search">
+            <input class="form-control mr-sm-2" name="name" type="text" placeholder="Name" style="width: 150px" value="" />
+            <input class="form-control mr-sm-2" name="email" type="text" placeholder="Email"style="width: 150px" value="" />
+            <input class="form-control mr-sm-2" name="fromDate" type="date" placeholder="Created From" style="width: 150px" value="" />
+            <input class="form-control mr-sm-2" name="toDate" type="date" placeholder="Created to" style="width: 150px" value="" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                 <i class="fas fa-search mr-2"></i>Search
             </button>
         </form>
@@ -47,19 +47,14 @@
           <td>{{ $user->phone }}</td>
           <td>{{ $user->dob }}</td>
           <td>{{ $user->address }}</td>
-          <td>{{ $user->created_at->format('d-m-Y') }}</td>
-          <td>{{ $user->updated_at->format('d-m-Y') }}</td>
+          <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
+          <td>{{ date('d-m-Y', strtotime($user->updated_at)) }}</td> 
           <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$user->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
-          @include('user.delete')
         </tr>   
         @endforeach
 
       </tbody>
     </table>
-    {{ $users->links() }}
   </div>
 </div>
-
-{{--  --}}
-
 @endsection

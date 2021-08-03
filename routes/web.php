@@ -17,12 +17,13 @@ use App\Http\Livewire\Admin\AdminDashboardComponent;
 
 Route::get('/', function () {
     return view('welcome');
-  });
+});
 
 Auth::routes();
 
 //Home Page
 Route::get('/home','App\Http\Controllers\PostController@index')->name('home');
+Route::post('/export','App\Http\Controllers\PostController@exportFile')->name('export');
 
 //Group Posts
 Route::group(['prefix' => 'posts'], function() {
@@ -39,10 +40,16 @@ Route::group(['prefix' => 'posts'], function() {
 
   //update confirm post
   Route::post('/updateConfirm','App\Http\Controllers\PostController@updateConfirmPost')->name('update');
-  Route::get('/uploadFile','App\Http\Controllers\PostController@uploadFile');
+  
+  //impot file
+  Route::get('/importFile','App\Http\Controllers\PostController@importFile');
+  Route::post('/import','App\Http\Controllers\PostController@import')->name('import');
 
   //delete post
   Route::delete('/delete/{id}','App\Http\Controllers\PostController@destroy')->name('posts.destroy');
+
+  //search by title and description
+  Route::post('/search','App\Http\Controllers\PostController@search');
 });
 
 //Group User
@@ -76,4 +83,6 @@ Route::group(['prefix' => 'user'], function () {
   Route::get('/changePassword/{id}','App\Http\Controllers\UserController@changePassword');
   Route::post('/addPassword','App\Http\Controllers\UserController@addPassword');
 
+  //Search By name, email , formDate and toDate
+  Route::post('/search','App\Http\Controllers\UserController@search');
 });

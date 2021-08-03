@@ -5,6 +5,7 @@ namespace App\Dao\User;
 use App\Contracts\Dao\User\UserDaoInterface;
 use App\Models\UserList;
 use Illuminate\Http\Request;
+use DB;
 
 class UserDao implements UserDaoInterface
 {           
@@ -148,5 +149,27 @@ class UserDao implements UserDaoInterface
     {   
       $user = UserList::findOrFail($request->id);
       return $user;
+    }
+
+    /**
+     * Show the application dashboard
+     *
+     * @return \Illuminate\Http\Request
+    */
+    public function search(Request $request)
+    {   
+        $fromDate = $request->input('fromDate');
+        $toDate = $request->input('toDate');
+        $name = $request->input('name');
+        $email = $request->input('email');
+
+        $users = DB::table('user_lists')->select()
+        ->where('name','LIKE', '%'.$name.'%')
+        ->where('email','LIKE', '%'.$email.'%')
+        ->where('created_at', '>=', $fromDate)
+        ->where('created_at', '<=', $toDate)
+        ->get();
+        //dd($users);
+       return $users;
     }
 }

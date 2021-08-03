@@ -4,10 +4,10 @@
   <h1 class="mb-5">Post List</h1>
   <div class="row">
     <div class="col-md-6">
-        <form action="/posts/search" class="form-inline my-2 my-lg-0" method="POST">
+        <form action="/posts/search" class="form-inline my-2 my-lg-0" method="POST" enctype="multipart/form-data">
             @csrf
-            <input class="form-control mr-sm-2" name="search_data" type="search" placeholder="Search" aria-label="Search" style="width: 400px" value="" />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <input class="form-control mr-sm-2" name="search_data" id="search_data" type="text" placeholder="Search" style="width: 400px" value="" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search">
                 <i class="fas fa-search mr-2"></i>Search
             </button>
         </form>
@@ -48,7 +48,7 @@
           <td>
             {{$post->status}}
           </td>
-          <td>{{ $post->created_at->format('d/m/Y') }}</td>
+          <td>{{ date('d-m-Y', strtotime($post->created_at)) }}</td>
           <td class="text-center"><a href={{"/posts/update/$post->id"}} class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
           
           <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$post->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
@@ -59,9 +59,6 @@
       </tbody>
      
     </table>
-    {{$posts->links()}}
   </div>
 </div>
 @endsection
-
-

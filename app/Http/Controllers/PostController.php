@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\ProductInsertRequest;
 use App\Http\Requests\PostUpdateRequest;
+use App\Http\Requests\ImportRequest;
 use App\Contracts\Services\Post\PostServiceInterface;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PostImport;
+use App\Exports\PostExport;
+use App\Models\Post;
+use DB;
 
 class PostController extends Controller
 {
@@ -118,11 +124,41 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
     */
-    public function uploadFile()
+    public function importFile()
     {
-        return view('posts.uploadFile');
+        return view('posts.importFile');
     } 
 
+    /**
+     * Show the application dashboard
+     *
+     * @return \Illuminate\Http\ImportRequest
+    */
+    public function import(ImportRequest $request)
+    {   
+        Excel::import(new PostImport,$request->file);
+        return redirect('/home');
+    } 
 
+    /**
+     * Show the application dashboard
+     *
+     * @return \Illuminate\Http\Request
+    */
+    public function exportFile(Request $request)
+    {   
+       return Excel::download(new PostExport, 'post-list.xlsx');
+    }
+
+    /**
+     * Show the application dashboard
+     *
+     * @return \Illuminate\Http\Request
+    */
+    public function search(Request $request)
+    {   
+        $posts=$this->postInterface->search($request);
+        return view('/posts/search',compact('posts'));
+    }
 
 }

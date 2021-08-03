@@ -65,7 +65,7 @@
 
         <div class="mb-3"> 
           <label for="date" class="form-label">Date Of Birth</label>
-          <input type="date" name="date" class="from-control col-md-12" placeholder="Enter Date Of Birth"> 
+          <input class="form-control col-md-12" name="date"  type="date" placeholder="Enter Date Of Birth"/>
           @error('date')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
           @enderror

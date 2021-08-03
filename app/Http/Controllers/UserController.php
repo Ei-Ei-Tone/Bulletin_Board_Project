@@ -10,6 +10,7 @@ use App\Http\Requests\UserRequest;
 use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\passwordFormRequest;
+use DB;
 
 class UserController extends Controller
 {   
@@ -162,8 +163,19 @@ class UserController extends Controller
             return view('user.updateProfile',compact('user'));
         }
         else {
-            return back()->with('change_password','Current password is not match.');;
+            return back()->with('change_password','Current password is not match.');
         }
 
+    }
+
+     /**
+     * Show the application dashboard
+     *
+     * @return \Illuminate\Http\Request
+    */
+    public function search(Request $request)
+    {   
+        $users = $this->userInterface->search($request);
+       return view('/user/searchList',compact('users'));
     }
 }

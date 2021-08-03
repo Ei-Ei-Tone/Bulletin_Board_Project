@@ -5,6 +5,7 @@ namespace App\Dao\Post;
 use App\Contracts\Dao\Post\PostDaoInterface;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use DB;
 
 class PostDao implements PostDaoInterface
 {
@@ -46,6 +47,23 @@ class PostDao implements PostDaoInterface
         $post->delete();
         return $post;
     }
+
+    /**
+     * Show the application dashboard
+     *
+     * @return \Illuminate\Http\Request
+    */
+    public function search(Request $request)
+    {   
+        $search_data = $request->input('search_data');
+
+        $posts=DB::table('posts')->select()
+        ->where('title','LIKE','%'.$search_data.'%')
+        ->orwhere('description','LIKE','%'.$search_data.'%')
+        ->get();
+        return $posts;
+    }
+
 }
 
 ?>

@@ -32,5 +32,8 @@ interface UserServiceInterface
 
   //add password to db
   public function addPassword(Request $request);
+
+  //search by name , email, created_from and create_to
+  public function search(Request $request);
 }
 ?>
