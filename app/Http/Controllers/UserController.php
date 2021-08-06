@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\UserList;
+use App\Models\User;
+use DB;
+use Auth;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\passwordFormRequest;
-use DB;
 
 class UserController extends Controller
 {   
@@ -43,7 +45,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
     */
     public function createUser()
-    {
+    {   
         return view('user.create');
     }
 
@@ -62,13 +64,13 @@ class UserController extends Controller
         $email = $request->email;
         $password = Hash::make($request->password);
         $confirm_password = $request->password_confirmation;
-        $type = $request->type;
+        $is_admin = $request->is_admin;
         $phone = $request->phone;
         $date = $request->date;
         $profile = $imageName;
         $address = $request->address;
 
-       return view('user/confirm' , compact('name','email','password','confirm_password','type','phone','date','profile','address'));
+       return view('user/confirm' , compact('name','email','password','confirm_password','is_admin','phone','date','profile','address'));
     }
 
     /**
@@ -77,11 +79,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
     */
     public function confirmUser(Request $request)
-    {        
-       $users=$this->userInterface->confirmUser($request);
-        return redirect('/user/create')->with('status','Successfully Form Inserted');
+    {    
+        $users=$this->userInterface->confirmUser($request);     
+        return redirect('/user/create')->with('status','Successfully Form Inserted'); 
     }
-
+    
     /**
      * Show the application dashboard
      *
@@ -98,10 +100,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
     */
-    public function showProfile($id)
+    public function showProfile($name)
     {   
-        $user = $this->userInterface->showProfile($id);
+        $user = $this->userInterface->showProfile($name);
         return view('user.showProfile',compact('user'));
+
+        // dd($user);
+        // if ($user = UserList::where('user_name', $user_name)->first()) {
+        //     return view('user.showProfile',compact('user'));
+        // }
     }
 
     /**
@@ -135,6 +142,7 @@ class UserController extends Controller
     {   
         $user = $this->userInterface->addProfile($request);
         return view('user.showprofile',compact('user'));
+
     }
 
     /**

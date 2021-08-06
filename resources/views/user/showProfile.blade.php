@@ -9,8 +9,9 @@
             @if(session('updated'))
             <p class="alert alert-success">{{ session('updated') }}</p>
             @endif
+            <input type="hidden" name="id" value=""/>
             <div class="row pb-lg-5">
-              <img src="{{asset('/images/'.$user->profile)}}" alt="Admin" class="rounded-circle" width="150">
+              <img src="{{asset('/images/'.$user->profile)}}" class="rounded-circle" width="150">
             </div>
             <div class="row">
               <label class="col-sm-3">
@@ -35,7 +36,7 @@
                 <h6 class="mb-0">Type</h6>
               </label>
               <div class="col-sm-9 text-secondary">
-               {{$user->type}}
+               {{$user->is_admin}}
               </div>
             </div>
             <hr>

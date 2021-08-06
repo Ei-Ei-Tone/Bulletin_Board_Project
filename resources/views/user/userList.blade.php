@@ -6,8 +6,8 @@
     <div class="col-md-10">
         <form action="/user/search" class="form-inline my-2 my-lg-0" method="POST" enctype="multipart/form-data">
             @csrf
-            <input class="form-control mr-sm-2" name="name" id="name" type="text" placeholder="Name" style="width: 150px" value="" />
-            <input class="form-control mr-sm-2" name="email" id="email" type="text" placeholder="Email"style="width: 150px" value="" />
+            <input class="form-control mr-sm-2" name="user_name" id="user_name" type="text" placeholder="Name" style="width: 150px" value="" />
+            <input class="form-control mr-sm-2" name="user_email" id="user_email" type="text" placeholder="Email"style="width: 150px" value="" />
             <input class="form-control mr-sm-2" name="fromDate" id="fromDate" type="date" placeholder="Created From" style="width: 150px" value="" />
             <input class="form-control mr-sm-2" name="toDate" id="toDate" type="date" placeholder="Created to" style="width: 150px" value="" />
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search">
@@ -40,26 +40,22 @@
       </thead>
       <tbody>
         @foreach ($users as $user)
-        <tr data-href="/user/showProfile/{{$user->id}}">
+        <tr data-href="/user/showProfile/{{$user->name}}">
           <th scope="row">{{ $user->name }}</th>
           <td>{{ $user->email }}</td>
-          <td>{{ $user->email }}</td>
+          <td>{{ $user->name }}</td>
           <td>{{ $user->phone }}</td>
           <td>{{ $user->dob }}</td>
           <td>{{ $user->address }}</td>
-          <td>{{ $user->created_at->format('d-m-Y') }}</td>
-          <td>{{ $user->updated_at->format('d-m-Y') }}</td>
+          <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
+          <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
           <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$user->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
           @include('user.delete')
         </tr>   
         @endforeach
-
       </tbody>
     </table>
     {{ $users->links() }}
   </div>
 </div>
-
-{{--  --}}
-
 @endsection

@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'email' =>  'required|email|unique:users,email',
             'password'  =>  'required|same:password_confirmation|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
             'password_confirmation'  =>  'required',
-            'type'  =>  'required',
+            'is_admin'  =>  'required',
             'phone' =>  'required',
             'date'  =>  'required',
             'address'   => 'required',

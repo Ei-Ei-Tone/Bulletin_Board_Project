@@ -8,6 +8,7 @@
           <form class="card-body" method="POST" action="/user/addProfile" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$user->id}}">
+            
             <div class="row pb-lg-5">
               <img src="{{asset('/images/'.$user->profile)}}" class="rounded-circle" width="150">
             </div>
@@ -29,7 +30,7 @@
               <label class="col-sm-3">
                 <h6 class="mb-0">Type</h6>
               </label>
-              <input type="text"  value ="{{$user->type}}" class="border-0 col-sm-9 text-secondary" name="type" readonly> 
+              <input type="text"  value ="{{$user->is_admin}}" class="border-0 col-sm-9 text-secondary" name="is_admin" readonly> 
             </div>
             <hr>
             <div class="row">

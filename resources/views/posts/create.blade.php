@@ -8,6 +8,7 @@
       
       <form action="{{url('/posts/store')}}" method="POST">
         {{ @csrf_field() }}
+      <input type="hidden" name="created_user_id" value="{{Auth::user()->id}}"/>
       <div class="form-group">
         <label for="title">Title <span class="require">*</span></label>
         <input type="text" class="form-control @error ('title') is-invalid @enderror" name="title"/>

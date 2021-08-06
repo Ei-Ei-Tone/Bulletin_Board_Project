@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'name'  =>  'required',
             'email' =>  'required|email|unique:users,email',
-            'type'  =>  'required',
+            'is_admin'  =>  'required',
         ];
     }
 }

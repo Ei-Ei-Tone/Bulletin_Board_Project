@@ -16,7 +16,7 @@ interface UserServiceInterface
   public function destroy($id);
 
   //Show user profile
-  public function showProfile($id);
+  public function showProfile($name);
 
   //show update profile
   public function showUpdateProfile($id);

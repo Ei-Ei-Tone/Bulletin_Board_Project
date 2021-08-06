@@ -31,8 +31,14 @@ class PostController extends Controller
 
     public function index()
     {   
-         $posts=$this->postInterface->index();
-         return view('home',compact('posts'));
+        $posts=$this->postInterface->index();
+        return view('home',compact('posts'));
+    }
+
+    public function adminHome()
+    {   
+        $posts=$this->postInterface->adminHome();
+        return view('admin',compact('posts'));
     }
 
     /**

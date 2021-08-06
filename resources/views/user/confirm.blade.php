@@ -7,6 +7,7 @@
       <h1 class="mb-5">Create User Confirmation</h1>
       <form class="card-body" method="POST" action="/user/confirm" enctype="multipart/form-data">
         {{ @csrf_field() }}
+        <input type="hidden" name="created_user_id" value="{{Auth::user()->id}}"/>
         <div class="row">
           <input type="text" style="display: none" name="profile" value="{{$profile}}">
           <img class="img-thumbnail col-sm-12 mb-5" id="img_prv" style="max-width:200px;max-height:200px;" src="{{asset('/images/'.$profile)}}">    
@@ -36,7 +37,7 @@
           <label class="col-sm-3">
           <h6 class="mb-0">Type</h6>
           </label>
-          <input type="type"  value ="{{$type}}" class="border-0 col-sm-9 text-secondary" name="type" readonly>
+          <input type="text"  value ="{{$is_admin}}" class="border-0 col-sm-9 text-secondary" name="is_admin" readonly>
         </div>
         <hr>
         <div class="row">

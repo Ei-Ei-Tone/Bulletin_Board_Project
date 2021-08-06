@@ -1,5 +1,4 @@
 @foreach ($users as $user)
-    
 
 <form id="deleteForm" method="POST" action="/user/delete/{{ $user->id }}" enctype="multipart/form-data">
 
@@ -10,13 +9,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-titile">Post Delete</h4>
+          <h4 class="modal-titile">user Delete</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Are You Sure ? ... You want to Delete <b> {{$user->title}} </b>.
+          Are You Sure ? ... You want to Delete <b> {{$user->name}} </b>.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn gray btn-outline-secondary" data-dismiss="modal">Cancel </button>

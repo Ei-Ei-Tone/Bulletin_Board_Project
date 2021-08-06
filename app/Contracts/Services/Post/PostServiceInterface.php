@@ -12,6 +12,9 @@ interface PostServiceInterface
     //get post list
     public function index();
 
+    //get post list for admin
+    public function adminHome();
+
     //update post
     public function updateShow($id);
 

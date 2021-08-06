@@ -54,9 +54,9 @@ class UserService implements UserServiceInterface
    * @param Object
    * @return $userList
    */ 
-    public function showProfile($id)
+  public function showProfile($name)
     {
-      return $this->userDao->showProfile($id);
+      return $this->userDao->showProfile($name);
     }
 
   /**

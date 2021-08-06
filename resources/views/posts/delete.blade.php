@@ -1,6 +1,4 @@
-
 @foreach ($posts as $post)
-    
 
 <form id="deleteForm" method="POST" action="{{ route('posts.destroy', $post->id) }}" enctype="multipart/form-data">
 

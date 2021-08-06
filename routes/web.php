@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
+use App\Models\UserList;
 
+use App\Http\Requests\UserRequest;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,10 @@ Auth::routes();
 
 //Home Page
 Route::get('/home','App\Http\Controllers\PostController@index')->name('home');
+
+Route::get('/admin/home','App\Http\Controllers\PostController@adminHome')->name('admin.home')->middleware('is_admin');
+
+//export file as xlsx
 Route::post('/export','App\Http\Controllers\PostController@exportFile')->name('export');
 
 //Group Posts
@@ -65,16 +71,19 @@ Route::group(['prefix' => 'user'], function () {
   Route::post('/confirm','App\Http\Controllers\UserController@confirmUser');
 
   //For User Delete
-  Route::delete('/delete/{id}','App\Http\Controllers\UserController@destroy');
-
-  //create user profile
-  Route::get('/showProfile/{id}','App\Http\Controllers\UserController@showProfile');
+  Route::delete('/delete/{id}','App\Http\Controllers\UserController@destroy')->name('user.destroy');
   
+  //create user profile
+  Route::get('/showProfile/{name}','App\Http\Controllers\UserController@showProfile');
+
   //update user profile
   Route::get('/showUpdateProfile/{id}','App\Http\Controllers\UserController@showUpdateProfile');
   
   //confirm user profile
   Route::post('/confirmProfile/{id}','App\Http\Controllers\UserController@confirmProfile');
+  // Route::post('/confirmProfile/{id}',function($id){
+  //   dd($id);
+  // });
 
   //add user profile to DB
   Route::post('/addProfile','App\Http\Controllers\UserController@addProfile');
@@ -86,3 +95,4 @@ Route::group(['prefix' => 'user'], function () {
   //Search By name, email , formDate and toDate
   Route::post('/search','App\Http\Controllers\UserController@search');
 });
+

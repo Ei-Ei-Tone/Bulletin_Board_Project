@@ -35,4 +35,13 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == 'user';
         });
     }
+
+    protected function getPermissions()
+    {
+        try {
+            return Permission::with('roles')->get();
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
 }

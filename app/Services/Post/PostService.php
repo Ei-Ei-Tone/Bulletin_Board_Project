@@ -39,6 +39,15 @@ class PostService implements PostServiceInterface
   }
 
   /**
+   * Get Post List For Admin
+   * @return $post
+   */
+  public function adminHome()
+  { 
+    return $this->postDao->adminHome();
+  }
+
+  /**
    * Update Post List
    * @return $post
    */

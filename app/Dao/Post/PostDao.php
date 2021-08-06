@@ -6,21 +6,39 @@ use App\Contracts\Dao\Post\PostDaoInterface;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
+
+use App\CustomClass\Pagination;
 
 class PostDao implements PostDaoInterface
 {
     public function addPost(Request $request)
-    {   
+    {  
        $posts= Post::create([
             'title'=>$request->title,
-            'description'=>$request->description
+            'description'=>$request->description,
+            'created_user_id' => Auth::user()->id
         ]);
         return $posts;
     }
 
     public function index()
     {   
-        $posts=Post::orderBy('id','desc')->paginate(5);
+        //$posts = Post::latest()->paginate(5);
+        $results = DB::table('posts')
+        ->join('users','posts.created_user_id','users.id')
+        ->get();
+        $posts = Pagination::paginate($results,5);
+        return $posts;
+    }
+
+    public function adminHome()
+    {   
+        //$posts = Post::latest()->paginate(5);
+        $results = DB::table('posts')
+        ->join('users','posts.created_user_id','users.id')
+        ->get();
+        $posts = Pagination::paginate($results,5);
         return $posts;
     }
 
@@ -36,7 +54,6 @@ class PostDao implements PostDaoInterface
         $post->title = $request->title;
         $post->description = $request->description;
         $post->status = (int) $request->has('status')? true : false;
-        //dd($post->status);
         $post->save();
         return $post;
     }

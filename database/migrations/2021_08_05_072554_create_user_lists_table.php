@@ -15,14 +15,15 @@ class CreateUserListsTable extends Migration
     {
         Schema::create('user_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique('username', 'users_username_unique');
-            $table->string('email')->unique('email', 'users_email_unique');
+            $table->string('user_name')->unique('username', 'users_username_unique');
+            $table->string('user_email',191)->index();
             $table->string('password');
             $table->string('type');
             $table->char('phone')->unique('phone', 'users_phone_unique');   
             $table->date('dob');
             $table->string('profile');
-            $table->char('address');   
+            $table->char('address');  
+            $table->integer('created_user_id');   
             $table->rememberToken();
             $table->timestamps();
         });

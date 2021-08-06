@@ -15,7 +15,7 @@ interface UserDaoInterface
   public function destroy($id);
 
   //Show user profile
-  public function showProfile($id);
+  public function showProfile($name);
 
   //show update profile
   public function showUpdateProfile($id);
@@ -31,5 +31,8 @@ interface UserDaoInterface
 
   //add password to db
   public function addPassword(Request $request);
+
+  //search by name , email, created_from and create_to
+  public function search(Request $request);
 }
 ?>

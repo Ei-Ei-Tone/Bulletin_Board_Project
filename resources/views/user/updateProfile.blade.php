@@ -38,8 +38,8 @@
               <h6 class="mb-0">Type</h6>
             </label>
             <div class="col-sm-9 text-secondary">
-              <select class="custom-select form-control @error ('type') is-invalid @enderror" id="custom-select" name="type" aria-label="select example">h  
-                <option value="">{{$user->type}}</option>
+              <select class="custom-select form-control @error ('type') is-invalid @enderror" id="custom-select" name="is_admin" aria-label="select example">h  
+                <option value="">{{$user->is_admin}}</option>
                 <option value="0">Admin</option>
                 <option value="1">User</option>
               </select>
