@@ -3,27 +3,33 @@
 <div class="container">
   <h1 class="mb-5">User List</h1>
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-sm-10">
         <form action="/user/search" class="form-inline my-2 my-lg-0" method="POST" enctype="multipart/form-data">
             @csrf
             <input class="form-control mr-sm-2" name="user_name" id="user_name" type="text" placeholder="Name" style="width: 150px" value="" />
             <input class="form-control mr-sm-2" name="user_email" id="user_email" type="text" placeholder="Email"style="width: 150px" value="" />
             <input class="form-control mr-sm-2" name="fromDate" id="fromDate" type="date" placeholder="Created From" style="width: 150px" value="" />
             <input class="form-control mr-sm-2" name="toDate" id="toDate" type="date" placeholder="Created to" style="width: 150px" value="" />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search">
+            <button class="btn btn-outline-success my-sm-0" type="submit" name="search">
                 <i class="fas fa-search mr-2"></i>Search
             </button>
         </form>
     </div>
-    <div class="col-md-2">
+    <div class="col-sm-2">
         <a href="/user/create" class="btn btn-info btn-lg btn-block">
           <i class="fas fa-plus"></i> Add
         </a>
     </div>
 
   </div>
+  @if(session('deleted'))
+    <div class="alert alert-success alert-dismissible mt-3">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{ session('deleted') }}
+    </div>
+  @endif
 
-  <div class="row mt-4">
+  <div class="row mt-2">   
     <table class="table table-bordered table-hover" id="datatable">
       <thead>
         <tr>
@@ -35,6 +41,7 @@
           <th scope="col">Address</th>
           <th scope="col">Created Date</th>
           <th scope="col">Updated Date</th>
+          <th>Show Detail</th>
           <th>Delete</th>
         </tr>
       </thead>
@@ -49,7 +56,10 @@
           <td>{{ $user->address }}</td>
           <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
           <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
-          <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$user->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
+          <td class="text-center"><a href="#" class="btn btn-primary btn-md edit" data-target="#ModalEdit{{$user->id}}" data-toggle="modal"><i class="fa fa-plus"></i> {{ __('Details') }}</a></td>
+          @include('user.showProfile')
+          
+          <td class="text-center"><a href="#" class="btn btn-danger btn-md delete" data-target="#ModalDelete{{$user->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
           @include('user.delete')
         </tr>   
         @endforeach

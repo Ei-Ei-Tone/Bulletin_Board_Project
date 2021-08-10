@@ -51,9 +51,9 @@ class PostService implements PostServiceInterface
    * Update Post List
    * @return $post
    */
-  public function updateShow($id)
+  public function updateShow($title)
   { 
-    return $this->postDao->updateShow($id);
+    return $this->postDao->updateShow($title);
   }
 
   /**
@@ -69,9 +69,9 @@ class PostService implements PostServiceInterface
    * Delete Post List
    * @return $post
    */
-  public function destroy($id)
+  public function destroy($title)
   { 
-    return $this->postDao->destroy($id);
+    return $this->postDao->destroy($title);
   }
 
   /**

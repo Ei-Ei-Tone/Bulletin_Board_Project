@@ -8,6 +8,7 @@
       <form class="card-body" method="POST" action="/user/confirm" enctype="multipart/form-data">
         {{ @csrf_field() }}
         <input type="hidden" name="created_user_id" value="{{Auth::user()->id}}"/>
+        <input type="hidden" name="deleted_user_id" value="{{Auth::user()->id}}"/>
         <div class="row">
           <input type="text" style="display: none" name="profile" value="{{$profile}}">
           <img class="img-thumbnail col-sm-12 mb-5" id="img_prv" style="max-width:200px;max-height:200px;" src="{{asset('/images/'.$profile)}}">    

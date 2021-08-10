@@ -6,6 +6,9 @@ use App\Contracts\Dao\User\UserDaoInterface;
 use App\Models\UserList;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+// use Illuminate\Http\Session;
+use App\Rules\MatchOldPassword;
 use DB;
 use Auth;
 
@@ -21,11 +24,6 @@ class UserDao implements UserDaoInterface
   public function getUserList()
   {   
     $users = User::latest()->paginate(5);
-    
-    // $results = DB::table('user_lists')
-    //     ->join('users','user_lists.created_user_id','users.id')
-    //     ->get();
-    // $users = Pagination::paginate($results,5);
     return $users;
   }
 
@@ -46,7 +44,8 @@ class UserDao implements UserDaoInterface
         'dob' => $request->get('date'),
         'profile'=>$request->get('profile'),
         'address' => $request->get('address'),
-        'created_user_id' => Auth::user()->id
+        'created_user_id' => Auth::user()->id,
+        'updated_user_id' => Auth::user()->id,
       ]);
       return $users;
 
@@ -87,6 +86,8 @@ class UserDao implements UserDaoInterface
     public function destroy($id)
     {   
       $user = User::find($id);
+      $user->deleted_user_id = auth()->user()->id;
+      $user->save();
       $user->delete();
       return $user;
     }
@@ -129,7 +130,7 @@ class UserDao implements UserDaoInterface
         $user->phone = $request->input('phone');
         $user->dob = $request->input('date');
         $user->address = $request->input('address');
-
+        $user->updated_user_id = auth()->user()->id;
         if($request->hasfile('profile'))
         {
             $image = $request->file('profile');
@@ -154,7 +155,7 @@ class UserDao implements UserDaoInterface
       $user->phone = $request->input('phone');
       $user->dob = $request->input('date');
       $user->address = $request->input('address');
-     
+      $user->updated_user_id = Auth::user()->id;
 
       if($request->hasfile('profile'))
       {
@@ -195,8 +196,14 @@ class UserDao implements UserDaoInterface
     */
     public function addPassword(Request $request)
     {   
+      $request->validate([
+        'current_password' => [new MatchOldPassword]
+      ]);
+      
       $user = User::findOrFail($request->id);
+      $user->password =  Hash::make($request->new_password);
       return $user;
+        
     }
 
     /**

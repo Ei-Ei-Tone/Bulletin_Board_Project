@@ -16,13 +16,13 @@ interface PostServiceInterface
     public function adminHome();
 
     //update post
-    public function updateShow($id);
+    public function updateShow($title);
 
     //update post confirm
     public function updateConfirmPost(Request $request);
 
     //delete post
-    public function destroy($id);
+    public function destroy($title);
 
     //search by title and description
     public function search(Request $request);

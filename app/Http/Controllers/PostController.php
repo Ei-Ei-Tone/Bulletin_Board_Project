@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contracts\Services\Post\PostServiceInterface;
 
 use App\Http\Requests\ProductInsertRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Http\Requests\ImportRequest;
-use App\Contracts\Services\Post\PostServiceInterface;
+
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PostImport;
 use App\Exports\PostExport;
 use App\Models\Post;
 use DB;
+use Auth;
 
 class PostController extends Controller
 {
@@ -82,9 +84,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
     */
-    public function updateShow($id)
+    public function updateShow($title)
     {   
-        $post = $this->postInterface->updateShow($id);
+        $post = $this->postInterface->updateShow($title);
         return view('posts.update',compact('post'));
     }   
 
@@ -111,7 +113,13 @@ class PostController extends Controller
     public function updateConfirmPost(Request $request)
     {   
         $post=$this->postInterface->updateConfirmPost($request);
-        return redirect('home');
+
+        if(auth()->user()->is_admin == 0) {
+            return redirect()->route('admin.home');
+        }else {
+            return redirect()->route('home');
+        }
+        
     } 
 
     /**
@@ -119,10 +127,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
     */
-    public function destroy($id)
+    public function destroy($title)
     {
-        $post=$this->postInterface->destroy($id);
-        return redirect('home')->with('deleted','Post deleted successfully.');
+        $post=$this->postInterface->destroy($title);
+        return back()->with('deleted','Post deleted successfully.');
     } 
 
     /**
@@ -143,7 +151,12 @@ class PostController extends Controller
     public function import(ImportRequest $request)
     {   
         Excel::import(new PostImport,$request->file);
-        return redirect('/home');
+        
+        if(auth()->user()->is_admin == 0) {
+            return redirect()->route('admin.home');
+        }else {
+            return redirect()->route('home');
+        }
     } 
 
     /**
@@ -164,7 +177,12 @@ class PostController extends Controller
     public function search(Request $request)
     {   
         $posts=$this->postInterface->search($request);
-        return view('/posts/search',compact('posts'));
+       
+        if(auth()->user()->is_admin == 0) {
+            return view('/posts/search',compact('posts'));
+        }else {
+            return view('/posts/searchUser',compact('posts'));
+        }
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Rules\MatchOldPassword;
 
 class PasswordFormRequest extends FormRequest
 {
@@ -25,8 +26,8 @@ class PasswordFormRequest extends FormRequest
     public function rules()
     {   
         return [
-            'password'  =>  'required|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',           
-            'new_password'  =>  'required|same:confirm_password|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/|different:password',
+            'current_password'  =>  'required|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',           
+            'new_password'  =>  'required|same:confirm_password|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/|different:current_password',
             'confirm_password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/'
         ];
     }

@@ -18,7 +18,9 @@ class PostImport implements ToModel,WithHeadingRow
         return new Post([
             "title" => $row["title"],
             "description" => $row["description"],
-            "status" => $row["status"]
+            "status" => $row["status"],
+            "created_user_id" => $row["created_user_id"],
+            "updated_user_id" => $row["updated_user_id"],
         ]);
     }
 }

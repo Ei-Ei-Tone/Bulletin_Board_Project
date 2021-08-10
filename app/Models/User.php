@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Post;
+
 class User extends Authenticatable
     {
     use HasFactory, Notifiable;
@@ -33,7 +35,9 @@ class User extends Authenticatable
         'dob',
         'profile',
         'address',
-        'created_user_id'
+        'created_user_id',
+        'updated_user_id',
+        'deleted_user_id'
     ];
 
     /**
@@ -54,4 +58,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function post()
+    {
+        return $this->belongsTo('Post','id');
+    }
 }

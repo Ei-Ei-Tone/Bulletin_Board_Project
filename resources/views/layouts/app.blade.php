@@ -27,6 +27,16 @@
   </style>
 </head> 
 
+@if (!Auth::guest())
+  @if(Auth::user()->is_admin == 0) 
+    @include('admin_header')
+  @else 
+    @include('header')
+  @endif
+@else
+ 
+@endif
+
   <main class="py-4">
     @yield('content')
   </main>
@@ -40,7 +50,16 @@
   <script src="{{ asset('css/app.css') }}" defer></script>
 
 </body>
-
+{{-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll("tr[data-href]");
+    rows.forEach(row => {
+      row.addEventListener("click", () => {
+        window.location.href = row.dataset.href;
+      });
+    });
+  });
+</script> --}}
   <script>
     $('#img_file_upid').on('change',function(ev) {
       console.log("here inside");
@@ -53,17 +72,8 @@
       }
       reader.readAsDataURL(this.files[0]);
     });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const rows = document.querySelectorAll("tr[data-href]");
-
-      rows.forEach(row => {
-        row.addEventListener("click", () => {
-          window.location.href = row.dataset.href;
-        });
-      });
-    });
   </script>
+
   <script>
       $(document).ready(function(){
         $('.pass_show').append('<span class="ptxt">Show</span>');  

@@ -17,8 +17,10 @@ class PostDao implements PostDaoInterface
        $posts= Post::create([
             'title'=>$request->title,
             'description'=>$request->description,
-            'created_user_id' => Auth::user()->id
+            'created_user_id' => Auth::user()->id,
+            'updated_user_id' => Auth::user()->id,
         ]);
+
         return $posts;
     }
 
@@ -27,6 +29,7 @@ class PostDao implements PostDaoInterface
         //$posts = Post::latest()->paginate(5);
         $results = DB::table('posts')
         ->join('users','posts.created_user_id','users.id')
+        ->where('posts.deleted_at', '=' , null)
         ->get();
         $posts = Pagination::paginate($results,5);
         return $posts;
@@ -37,15 +40,17 @@ class PostDao implements PostDaoInterface
         //$posts = Post::latest()->paginate(5);
         $results = DB::table('posts')
         ->join('users','posts.created_user_id','users.id')
+        ->where('posts.deleted_at', '=' , null)
         ->get();
         $posts = Pagination::paginate($results,5);
         return $posts;
     }
 
-    public function updateShow($id)
+    public function updateShow($title)
     {   
-        $post = Post::find($id);
-        return $post;
+        if ($post = Post::where('title', $title)->first()) {
+          return $post;  
+        }
     }
 
     public function updateConfirmPost(Request $request)
@@ -54,15 +59,20 @@ class PostDao implements PostDaoInterface
         $post->title = $request->title;
         $post->description = $request->description;
         $post->status = (int) $request->has('status')? true : false;
+        $post->updated_user_id = auth()->user()->id;
         $post->save();
         return $post;
     }
 
-    public function destroy($id)
+    public function destroy($title)
     { 
-        $post = Post::find($id);
-        $post->delete();
-        return $post;
+        if ($post = Post::where('title', $title)->first()) 
+        {
+            $post->deleted_user_id = Auth::user()->id;
+            $post->save();
+            $post->delete();
+            return $post;
+        }
     }
 
     /**
@@ -74,7 +84,9 @@ class PostDao implements PostDaoInterface
     {   
         $search_data = $request->input('search_data');
 
-        $posts=DB::table('posts')->select()
+        $posts=DB::table('posts')
+        ->join('users','posts.created_user_id','users.id')
+        ->select()
         ->where('title','LIKE','%'.$search_data.'%')
         ->orwhere('description','LIKE','%'.$search_data.'%')
         ->get();

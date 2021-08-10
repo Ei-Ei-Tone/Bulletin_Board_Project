@@ -9,7 +9,10 @@
         <div class="card-body">
           <form action="/user/store" method="POST" enctype="multipart/form-data">
             @if(session('status'))
-              <p class="alert alert-success">{{ session('status') }}</p>
+              <div class="alert alert-success alert-dismissible mt-3">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('status') }}
+              </div>
             @endif
             {{ @csrf_field() }}
             <input type="hidden" name="created_user_id" value="{{Auth::user()->id}}"/>

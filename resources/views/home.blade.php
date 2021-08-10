@@ -1,8 +1,5 @@
-@include('header') 
-
 @extends('layouts.app')
 @section('content')
-
 <div class="container">
   <h1 class="mb-5">Post List For User</h1>
   <div class="row">
@@ -31,6 +28,21 @@
         </button>
     </form>
   </div>
+
+  @if(session('updated'))
+  <div class="alert alert-success alert-dismissible mt-3">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{ session('updated') }}
+  </div>
+  @endif
+
+  @if(session('deleted'))
+    <div class="alert alert-success alert-dismissible mt-3">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{ session('deleted') }}
+    </div>
+  @endif
+
   <div class="row mt-4">
     <table class="table table-bordered table-hover" id="datatable">
       <thead>
@@ -44,28 +56,22 @@
         </tr>
       </thead>
       <tbody>
-      {{-- @if(isset($posts) && count($posts) > 1) --}}
         @foreach ($posts as $post)
-          @if(Auth::user()->id == $post->created_user_id)
+          @if( Auth::user()->name== $post->name) 
             <tr>
               <th scope="row">{{$post->title}}</th>
               <td>{{$post->description}}</td>
               <td>
                 {{$post->name}}
-              </td>
-              
+              </td> 
               <td>{{ date('d-m-Y', strtotime($post->created_at)) }}</td>
-              <td class="text-center"><a href={{"/posts/update/$post->id"}} class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
+              <td class="text-center"><a href={{"/posts/update/$post->title"}} class="btn btn-primary btn-lg" ><i class="fa fa-edit"></i> Edit</a></td>
               
-              <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$post->id}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
+              <td class="text-center"><a href="#" class="btn btn-danger btn-lg delete" data-target="#ModalDelete{{$post->title}}" data-toggle="modal"><i class="fa fa-trash"></i> {{ __('Delete') }}</a></td>
               @include('posts.delete')
-            </tr> 
-          @endif
+            </tr>    
+          @endif 
         @endforeach
-      {{-- @else
-        <input type="hidden" name="" id="" value="no post">
-      @endif --}}
-
       </tbody> 
     </table>
     {{-- Pagination --}}

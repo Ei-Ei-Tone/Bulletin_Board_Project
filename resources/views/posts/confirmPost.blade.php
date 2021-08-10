@@ -7,6 +7,8 @@
       <h1 class="mb-5">Create Post Confirmation</h1>
       <form class="card-body" method="POST" action="/posts/confirm">
         {{ @csrf_field() }}
+        <input type="hidden" name="deleted_user_id" value="{{Auth::user()->id}}"/>
+        <input type="hidden" name="created_user_id" value="{{Auth::user()->id}}"/>
         <div class="row">
           <label class="col-sm-3">
           <h6 class="mb-0">Title</h6>

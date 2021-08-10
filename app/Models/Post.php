@@ -11,6 +11,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $table = 'posts';
 
     protected $dates = [ 'deleted_at' ];
     
@@ -18,13 +19,7 @@ class Post extends Model
         "title", 
         "description",
         "status",
-        "created_user_id"
+        "created_user_id",
+        "updated_user_id"
     ];  
-
-    // public function user()
-    // {
-    // return $this->belongsTo('App\Models\User','id');
-    // }
-
-    protected $table = 'posts';
 }

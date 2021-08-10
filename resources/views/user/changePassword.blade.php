@@ -14,8 +14,8 @@
         @endif
       </div>
       <div class="form-group pass_show"> 
-        <input type="password" value="" class="form-control @error ('password') is-invalid @enderror" placeholder="Current Password" name="password"> 
-        @error('password')
+        <input type="password" value="" class="form-control @error ('current_password') is-invalid @enderror" placeholder="Current Password" name="current_password"> 
+        @error('current_password')
         <div class="alert alert-danger mt-1">{{ $message }}</div> 
         @enderror
       </div> 

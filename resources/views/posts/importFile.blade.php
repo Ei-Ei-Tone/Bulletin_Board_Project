@@ -8,7 +8,7 @@
       <form action="{{route('import')}}" method="POST" class="form-group" enctype="multipart/form-data">
         @csrf
         <label>Import File Form:</label>
-        <input type="file" value="" class="form-control @error ('file') is-invalid @enderror" name="file">
+        <input type="file" value="file" class="form-control @error ('file') is-invalid @enderror" name="file">
         @error('file')
           <div class="alert alert-danger mt-2">
             {{$message}}

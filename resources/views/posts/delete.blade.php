@@ -1,11 +1,11 @@
 @foreach ($posts as $post)
 
-<form id="deleteForm" method="POST" action="{{ route('posts.destroy', $post->id) }}" enctype="multipart/form-data">
+<form id="deleteForm" method="POST" action="{{ route('posts.destroy', $post->title) }}" enctype="multipart/form-data">
 
   {{ csrf_field() }}
   {{ method_field('DELETE') }}
 
-  <div class="modal fade" id="ModalDelete{{$post->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="ModalDelete{{$post->title}}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

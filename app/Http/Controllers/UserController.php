@@ -104,11 +104,6 @@ class UserController extends Controller
     {   
         $user = $this->userInterface->showProfile($name);
         return view('user.showProfile',compact('user'));
-
-        // dd($user);
-        // if ($user = UserList::where('user_name', $user_name)->first()) {
-        //     return view('user.showProfile',compact('user'));
-        // }
     }
 
     /**
@@ -141,8 +136,7 @@ class UserController extends Controller
     public function addProfile(Request $request)
     {   
         $user = $this->userInterface->addProfile($request);
-        return view('user.showprofile',compact('user'));
-
+        return view('user.showProfile',compact('user'));
     }
 
     /**
@@ -164,16 +158,7 @@ class UserController extends Controller
     public function addPassword(PasswordFormRequest $request)
     {   
         $user = $this->userInterface->addPassword($request);
-
-        if($user->password == $request->password){
-            $user->password = Hash::make($request->new_password);
-            $user->save();
-            return view('user.updateProfile',compact('user'));
-        }
-        else {
-            return back()->with('change_password','Current password is not match.');
-        }
-
+        return view('user.showProfile',compact('user'));
     }
 
      /**
@@ -184,6 +169,6 @@ class UserController extends Controller
     public function search(Request $request)
     {   
         $users = $this->userInterface->search($request);
-       return view('/user/searchList',compact('users'));
+        return view('/user/searchList',compact('users'));
     }
 }

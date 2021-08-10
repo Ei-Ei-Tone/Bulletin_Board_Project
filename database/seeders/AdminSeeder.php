@@ -22,9 +22,10 @@ class AdminSeeder extends Seeder
             'is_admin' => '0',
             'phone'=> '09987654322',
             'dob' => '1.6.2000',
-            'profile' => '../public/images/admin.jpg',
+            'profile' => 'admin.jpg',
             'address' => 'Botahtaung',
-            'created_user_id'=>'1'
+            'created_user_id'=>'1',
+            'updated_user_id'=>'1',
         ]);
     }
 }

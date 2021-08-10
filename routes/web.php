@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
-use App\Models\UserList;
+use App\Models\Post;
 
 use App\Http\Requests\UserRequest;
 /*
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'posts'], function() {
   Route::post('/confirm','App\Http\Controllers\PostController@addPost');
 
   //update post
-  Route::get('/update/{id}','App\Http\Controllers\PostController@updateShow');
+  Route::get('/update/{title}','App\Http\Controllers\PostController@updateShow');
   Route::post('/updatePost','App\Http\Controllers\PostController@updatePost');
 
   //update confirm post
@@ -52,7 +52,7 @@ Route::group(['prefix' => 'posts'], function() {
   Route::post('/import','App\Http\Controllers\PostController@import')->name('import');
 
   //delete post
-  Route::delete('/delete/{id}','App\Http\Controllers\PostController@destroy')->name('posts.destroy');
+  Route::delete('/delete/{title}','App\Http\Controllers\PostController@destroy')->name('posts.destroy');
 
   //search by title and description
   Route::post('/search','App\Http\Controllers\PostController@search');
@@ -74,16 +74,13 @@ Route::group(['prefix' => 'user'], function () {
   Route::delete('/delete/{id}','App\Http\Controllers\UserController@destroy')->name('user.destroy');
   
   //create user profile
-  Route::get('/showProfile/{name}','App\Http\Controllers\UserController@showProfile');
+  Route::get('/showProfile/{name}','App\Http\Controllers\UserController@showProfile')->name('user.showProfile');;
 
   //update user profile
   Route::get('/showUpdateProfile/{id}','App\Http\Controllers\UserController@showUpdateProfile');
   
   //confirm user profile
   Route::post('/confirmProfile/{id}','App\Http\Controllers\UserController@confirmProfile');
-  // Route::post('/confirmProfile/{id}',function($id){
-  //   dd($id);
-  // });
 
   //add user profile to DB
   Route::post('/addProfile','App\Http\Controllers\UserController@addProfile');
