@@ -199,7 +199,7 @@ class UserDao implements UserDaoInterface
       $request->validate([
         'current_password' => [new MatchOldPassword]
       ]);
-      
+
       $user = User::findOrFail($request->id);
       $user->password =  Hash::make($request->new_password);
       return $user;
@@ -218,7 +218,7 @@ class UserDao implements UserDaoInterface
         $name = $request->input('name');
         $email = $request->input('email');
 
-        $users = DB::table('user_lists')->select()
+        $users = DB::table('users')->select()
         ->where('name','LIKE', '%'.$name.'%')
         ->where('email','LIKE', '%'.$email.'%')
         ->where('created_at', '>=', $fromDate)
