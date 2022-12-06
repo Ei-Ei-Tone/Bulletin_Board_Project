@@ -95,7 +95,7 @@
               
             <div class="form-group col text-center">
               <button type="submit" class="btn btn-primary mx-sm-3">
-                  Confirm
+                  Create
               </button>
               <button type="reset" class="btn btn-outline-success">
                   Clear

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Bulletin Board</title>
+  <title>Mobile Phone Selling</title>
   <script src="{{ asset('js/app.js') }}" defer></script>
   <link rel="stylesheet" href="{!!asset('/css/bootstrap.min.css')!!}">
   <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
